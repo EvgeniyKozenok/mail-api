@@ -15,4 +15,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::namespace('Api')->group(function () {
     Route::post('register', 'RegisterController@register');
+
+    Route::middleware(['auth:api', 'throttle:3,1440'])->group(function () {
+        Route::post('dispatch', 'DispatchController@store');
+    });
 });
